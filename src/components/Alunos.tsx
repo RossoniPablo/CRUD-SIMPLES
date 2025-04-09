@@ -50,6 +50,11 @@ const Alunos = () => {
       setError('Campos em branco')
       return
     }
+    if (!novoAluno.email.includes("@")) {
+      setError("Digite um e-mail válido.");
+      return;
+    }
+
     setError("")
 
     const newDadosUsuario = {
@@ -65,6 +70,7 @@ const Alunos = () => {
     // Fecha o modal após o cadastro
     setIsOpen(false); // Fecha o modal
   }
+
 
   //Função para deletar aluno
   const deleteAluno = (id: number) => {
@@ -144,10 +150,11 @@ const Alunos = () => {
                     id="email"
                     className="col-span-3"
                     value={novoAluno.email}
-                    onChange={(e) =>
-                      setNovoAluno({ ...novoAluno, email: e.target.value })
-                    }
+                    onChange={(e) => setNovoAluno({ ...novoAluno, email: e.target.value })}
+                    placeholder="Digite o e-mail"
+                    required
                   />
+
                 </div>
 
                 {error && (
@@ -175,9 +182,7 @@ const Alunos = () => {
       <div className="border rounded-md p-4 shadow-sm">
         <Table className="">
           <TableHeader>
-
             <TableRow >
-
               <TableHead>Matrícula</TableHead>
               <TableHead>Nome</TableHead>
               <TableHead>Email</TableHead>
@@ -211,7 +216,6 @@ const Alunos = () => {
                           Utilize os campos abaixo para alterar dados do aluno <span className="font-bold">{aluno.name}</span>
                         </DialogDescription>
                       </DialogHeader>
-
                       <form
                         onSubmit={(e) => {
                           e.preventDefault()
@@ -241,7 +245,7 @@ const Alunos = () => {
                           className="text-zinc-400"
                         />
 
-                        <DialogFooter>
+                        <DialogFooter className="mt-6">
                           <DialogClose asChild>
                             <Button variant="outline" className="cursor-pointer">
                               Cancelar
